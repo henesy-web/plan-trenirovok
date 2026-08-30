@@ -15,10 +15,11 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-    - name: Make gradlew executable
-      run: chmod +x gradlew
-    - name: Build APK
-      run: ./gradlew assembleDebug --no-daemon --stacktrace
+    - name: Build APK with system Gradle
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gradle
+        gradle assembleDebug --no-daemon --stacktrace
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
