@@ -15,10 +15,12 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-    - name: Build APK with system Gradle
+    - name: Build APK with modern Gradle
       run: |
-        sudo apt-get update
-        sudo apt-get install -y gradle
+        # Скачиваем свежий Gradle
+        wget -q https://services.gradle.org/distributions/gradle-8.2-bin.zip
+        unzip -q gradle-8.2-bin.zip
+        export PATH=$PWD/gradle-8.2/bin:$PATH
         gradle assembleDebug --no-daemon --stacktrace
     - name: Upload APK
       uses: actions/upload-artifact@v4
